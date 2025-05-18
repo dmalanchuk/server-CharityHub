@@ -1,0 +1,4 @@
+fastapi[standard]==0.0.7
+pydantic==4.13.2
+
+alembic==1.15.2
