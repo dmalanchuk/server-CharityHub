@@ -1,4 +1,7 @@
-fastapi[standard]==0.0.7
-pydantic==4.13.2
+fastapi[standard]
+uvicorn
 
-alembic==1.15.2
+sqlalchemy
+asyncpg
+
+pydantic
