@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from src.database import get_session
 
 
 categories_router = APIRouter(
@@ -7,7 +9,7 @@ categories_router = APIRouter(
 
 
 @categories_router.get("/")
-async def get_categories():
+async def get_categories(session: AsyncSession = Depends(get_session)):
     pass
 
 
