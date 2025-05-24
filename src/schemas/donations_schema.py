@@ -3,16 +3,13 @@ import datetime
 from pydantic import BaseModel
 
 
-class GetDonations(BaseModel):
+class DonationsBase(BaseModel):
+    amount: int
+    message: str | None
+    donated_at: datetime
+
+
+class GetDonations(DonationsBase):
     id: int
     user_id: int
-    product_id: int
-    amount: int
-    message: str
-    donated_at: datetime
-
-
-class Donations(BaseModel):
-    amount: int
-    message: str
-    donated_at: datetime
+    category_id: int

@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
 
-class Category(BaseModel):
+class CategoryBase(BaseModel):
     name: str
 
 
-class GetCategories(BaseModel):
+class GetCategories(CategoryBase):
     id: int
-    name: str
+
