@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class CategoryBase(BaseModel):
-    name: str
+    title: str
 
 
 class GetCategories(CategoryBase):
