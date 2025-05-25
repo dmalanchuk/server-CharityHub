@@ -15,5 +15,5 @@ class UserModel(Base):
     current_amount: Mapped[int] = mapped_column("current_amount", nullable=False)
     category_id: Mapped[int] = mapped_column("category_id", ForeignKey("categories.id"))
     owner_id: Mapped[int] = mapped_column("user_id", ForeignKey("users.id"))
-    start_date: Mapped[datetime] = mapped_column("start_date")
-    end_date: Mapped[datetime] = mapped_column("end_date")
+    start_date: Mapped[datetime.datetime] = mapped_column("start_date")
+    end_date: Mapped[datetime.datetime] = mapped_column("end_date")

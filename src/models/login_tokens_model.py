@@ -7,7 +7,7 @@ from src.database import Base
 
 
 
-class UserModel(Base):
+class LoginTokens(Base):
     __tablename__ = "login_tokens"
 
     id: Mapped[int] = mapped_column("id", primary_key=True)
