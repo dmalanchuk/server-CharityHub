@@ -6,7 +6,9 @@ class User(BaseModel):
     email: EmailStr
 
 
-class GetUser(BaseModel):
+class GetUser(User):
     id: int
-    name: str
-    email: EmailStr
+
+
+class UserCreate(User):
+    email_code: int

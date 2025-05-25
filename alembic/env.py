@@ -5,6 +5,10 @@ from sqlalchemy import pool
 
 from alembic import context
 
+import os
+from dotenv import load_dotenv
+
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -38,7 +42,12 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    load_dotenv()
+
+    ASYNC_DATABASE_URL = os.getenv("DATABASE_URL")
+    SYNC_DATABASE_URL = ASYNC_DATABASE_URL.replace("asyncpg", "psycopg2")
+
+    url = config.get_main_option("sqlalchemy.url", SYNC_DATABASE_URL)
     context.configure(
         url=url,
         target_metadata=target_metadata,
