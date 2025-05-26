@@ -11,7 +11,7 @@ categories_router = APIRouter(
 async def get_categories(
 
 ) -> list[CategoryBase]:
-    pass
+    ...
 
 
 @categories_router.post("/")
