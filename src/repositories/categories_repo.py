@@ -6,16 +6,16 @@ from src.schemas.categories_schema import CategoryBase
 
 class CategoriesRepository:
 
-    @staticmethod
-    async def get_all(session: AsyncSession):
+    @classmethod
+    async def get_all(cls, session: AsyncSession):
         result = await session.execute(select(CategoriesModel))
         return result.scalars().all()
 
 
-    @staticmethod
-    async def create(session: AsyncSession, data: CategoryBase):
-        category = CategoriesModel(**data.to_dict())
-        data.session.add(category)
-        await data.session.commit()
-        await data.session.refresh(category)
+    @classmethod
+    async def create(cls, session: AsyncSession, data: CategoryBase):
+        category = CategoriesModel(**data.model_dump())
+        session.add(category)
+        await session.commit()
+        await session.refresh(category)
         return category
