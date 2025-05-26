@@ -8,3 +8,5 @@ class CategoryBase(BaseModel):
 class GetCategories(CategoryBase):
     id: int
 
+    class Config:
+        from_attributes = True
