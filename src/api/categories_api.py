@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+from typing import Annotated
+
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_session
@@ -7,8 +9,7 @@ from src.services.categories_service import CategoriesService
 from src.schemas.categories_schema import CategoryBase
 
 categories_router = APIRouter(
-    prefix="/categories",
-    tags=["categories"]
+    prefix="/categories"
 )
 
 
@@ -21,7 +22,7 @@ async def get_categories(
 
 @categories_router.post("/")
 async def post_categories(
-        data: CategoryBase,
+        data: Annotated[CategoryBase, Depends()],
         session: AsyncSession = Depends(get_session)
 ):
    return await CategoriesService.create_category(session, data)
