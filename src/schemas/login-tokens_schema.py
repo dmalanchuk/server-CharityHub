@@ -2,11 +2,14 @@ from pydantic import BaseModel
 
 import datetime
 
+class Token(BaseModel):
+    ...
 
-class GetLoginToken(BaseModel):
+
+class GetLoginToken(Token):
     id: int
     user_id: int
     token: str
-    created_at: datetime
-    expires_at: datetime
     revoked: bool
+    created_at: datetime
+    expires: datetime
