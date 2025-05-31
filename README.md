@@ -20,3 +20,8 @@ and responsiveness._
 _The data is stored in a PostgreSQL database, with SQLAlchemy and asyncpg 
 used for asynchronous database communication and ORM functionality.  
 This allows for efficient data handling and a clean, maintainable codebase._
+
+
+## Running app
+
+command: `uvicorn src.main:app --reload`
