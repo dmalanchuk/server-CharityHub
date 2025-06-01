@@ -8,3 +8,4 @@ asyncpg==0.30.0
 alembic==1.15.2
 
 passlib==1.7.4
+aiosmtplib==4.0.1
