@@ -6,3 +6,5 @@ pydantic==2.11.4
 SQLAlchemy==2.0.41
 asyncpg==0.30.0
 alembic==1.15.2
+
+passlib==1.7.4
