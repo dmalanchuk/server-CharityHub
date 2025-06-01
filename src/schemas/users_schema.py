@@ -6,9 +6,10 @@ class User(BaseModel):
     email: EmailStr
 
 
-class GetUser(User):
+class GetInfoUser(User):
     id: int
+    is_verified: bool
 
 
-class UserCreate(User):
-    email_code: int
+class CreateUser(User):
+    password: str
