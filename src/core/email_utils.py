@@ -1,6 +1,10 @@
 from email.message import EmailMessage
 from aiosmtplib import SMTP
 
+"""
+    it's testing format, soon changing on real format
+"""
+
 
 SMTP_HOST = "sandbox.smtp.mailtrap.io"
 SMTP_PORT = 587
