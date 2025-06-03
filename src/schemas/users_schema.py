@@ -5,6 +5,9 @@ class User(BaseModel):
     username: str
     email: EmailStr
 
+    class Config:
+        orm_mode = True
+
 
 class GetInfoUser(User):
     id: int
@@ -13,3 +16,4 @@ class GetInfoUser(User):
 
 class CreateUser(User):
     password: str
+    verified_code: str

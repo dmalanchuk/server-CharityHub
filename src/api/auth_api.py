@@ -8,10 +8,22 @@ auth_router = APIRouter(
 
 
 @auth_router.post("/login")
-async def login_users():
+async def login_users(
+        email: str,
+        password: str
+):
     ...
 
 
 @auth_router.post("/register")
-async def register_users():
+async def register_users(
+        username: str,
+        email: str,
+        password: str
+):
+    ...
+
+
+@auth_router.get("/info_user_me")
+async def get_info_user_me():
     ...
