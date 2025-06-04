@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models.users_model import UserModel
-from schemas.users_schema import CreateUser
+from src.models.users_model import UserModel
+from src.schemas.users_schema import CreateUser
 
 
 class RegistrationUser:

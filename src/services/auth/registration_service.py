@@ -2,13 +2,13 @@ import random
 
 from fastapi import HTTPException
 
-from core.email_utils import send_verification_code
-from core.security_pw import hash_password
+from src.core.email_utils import send_verification_code
+from src.core.security_pw import hash_password
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from schemas.users_schema import CreateUser
-from repositories.auth.registration_repo import RegistrationUser
+from src.schemas.users_schema import CreateUser
+from src.repositories.auth.registration_repo import RegistrationUser
 
 
 
