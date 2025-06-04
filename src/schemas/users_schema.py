@@ -16,4 +16,3 @@ class GetInfoUser(User):
 
 class CreateUser(User):
     password: str = Field(min_length=8)
-    verification_code: str
