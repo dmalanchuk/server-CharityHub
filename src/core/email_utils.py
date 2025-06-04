@@ -14,7 +14,7 @@ SMTP_PORT = 587
 
 
 
-async def send_verification_email(code: str, to_email: str):
+async def send_verification_code(code: str, to_email: str):
     msg = EmailMessage()
     msg["FROM"] = SMTP_USER
     msg["TO"] = to_email

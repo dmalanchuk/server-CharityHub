@@ -2,7 +2,7 @@ import random
 
 from fastapi import HTTPException
 
-from core.email_utils import send_verification_email
+from core.email_utils import send_verification_code
 from core.security_pw import hash_password
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -32,7 +32,7 @@ class RegistrationService:
         return await RegistrationUser.reg_user_by_email(new_user_data, session)
 
     @staticmethod
-    async def get_verification_code(cls, email: str, session: AsyncSession):
+    async def get_verification_code(email: str, session: AsyncSession):
         get_user = await RegistrationUser.get_by_email(email, session)
 
         if not get_user:
@@ -41,5 +41,5 @@ class RegistrationService:
         verification_code = str(random.randint(100000, 999999))
         get_user.verification_code = verification_code
 
-        await send_verification_email(email, verification_code)
+        await send_verification_code(email, verification_code)
         return {"msg": "Verification code has been sent"}

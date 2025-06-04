@@ -7,6 +7,8 @@ from src.database import get_session
 
 from fastapi import APIRouter, Depends
 
+from services.auth.registration_service import RegistrationService
+
 auth_router = APIRouter(
     prefix="/auth"
 )
@@ -52,4 +54,4 @@ async def verify_user(
         email: EmailStr,
         session: AsyncSession = Depends(get_session)
 ):
-    ...
+    return await RegistrationService.get_verification_code(email, session)
