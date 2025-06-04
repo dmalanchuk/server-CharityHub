@@ -2,6 +2,7 @@ import random
 
 from fastapi import HTTPException
 
+from src.models.users_model import UserModel
 from src.core.email_utils import send_verification_code
 from src.core.security_pw import hash_password
 
@@ -20,13 +21,12 @@ class RegistrationService:
         if existing_user:
             raise ValueError("User with this email already exists")
 
-
         new_user_data = {
             "username": data.username,
             "email": data.email,
             "password": hash_password(data.password),
             "is_verified": False,
-            "verification_code": None
+            "verified_code": None,
         }
 
         return await RegistrationUser.reg_user_by_email(new_user_data, session)

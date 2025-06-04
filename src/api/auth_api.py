@@ -3,6 +3,8 @@ from pydantic import EmailStr
 
 
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from src.schemas.users_schema import CreateUser
 from src.database import get_session
 
 from fastapi import APIRouter, Depends
@@ -16,12 +18,10 @@ auth_router = APIRouter(
 
 @auth_router.post("/registration") # registration
 async def registration_user(
-        username: str,
-        email: str,
-        password: str,
+        data: Annotated[CreateUser, Depends()],
         session: AsyncSession = Depends(get_session)
 ):
-    ...
+    return await RegistrationService.auth_registration_user_service(data, session)
 
 
 @auth_router.post("/login/email") # login email

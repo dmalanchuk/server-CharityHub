@@ -11,3 +11,4 @@ passlib==1.7.4
 aiosmtplib==4.0.1
 
 python-jose
+bcrypt

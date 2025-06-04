@@ -15,8 +15,8 @@ class RegistrationUser:
         return result.scalars().first()
 
     @classmethod
-    async def reg_user_by_email(cls, data: dict, session: AsyncSession):
-        new_user = CreateUser(**data)
+    async def reg_user_by_email(cls, data: CreateUser, session: AsyncSession):
+        new_user = UserModel(**data)
 
         session.add(new_user)
         await session.commit()

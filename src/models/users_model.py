@@ -10,4 +10,4 @@ class UserModel(Base):
     email: Mapped[str] = mapped_column(nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
     is_verified: Mapped[bool] = mapped_column(default=False ,nullable=False)
-    verified_code: Mapped[str] = mapped_column()
+    verified_code: Mapped[str] = mapped_column(default=None ,nullable=True)
