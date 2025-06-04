@@ -6,8 +6,7 @@ from sqlalchemy.future import select
 import random
 
 
-
-async def auth_reg_user_service(username: str, password: str
+async def auth_registration_user_service(username: str, password: str
                                 , email: str, session: AsyncSession):
     result = await session.execute(select(UserModel).where(UserModel.email == email))
     if result.scalars().one_or_none():
@@ -27,10 +26,4 @@ async def auth_reg_user_service(username: str, password: str
     await session.commit()
     await session.refresh(new_user)
 
-    print(f"Verification code for {email}: {verified_code}")
-
     return new_user
-
-
-async def auth_login_user_service():
-    ...
