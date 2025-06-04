@@ -1,20 +1,22 @@
 from email.message import EmailMessage
 from aiosmtplib import SMTP
 
-"""
-    it's testing format, soon changing on real format
-"""
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-SMTP_HOST = "sandbox.smtp.mailtrap.io"
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASS = os.getenv("SMTP_PASS")
+
+SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USER = "95a1307be86e18"
-SMTP_PASS = "7de596792ef732"
+
 
 
 async def send_verification_email(code: str, to_email: str):
     msg = EmailMessage()
-    msg["FROM"] = "noreply@charityhub.com"
+    msg["FROM"] = SMTP_USER
     msg["TO"] = to_email
     msg["SUBJECT"] = "Verify your email"
     msg.set_content(f"Your verification code is: {code}")
