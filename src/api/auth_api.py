@@ -7,7 +7,17 @@ auth_router = APIRouter(
 )
 
 
-@auth_router.post("/login")
+@auth_router.post("/registration") # registration
+async def registration_user(
+        username: str,
+        email: str,
+        password: str,
+        verification_code: str
+):
+    ...
+
+
+@auth_router.post("/login/email") # login email
 async def login_users(
         email: str,
         password: str
@@ -15,15 +25,14 @@ async def login_users(
     ...
 
 
-@auth_router.post("/register")
-async def register_users(
+@auth_router.post("/login/username") # login username
+async def login_users(
         username: str,
-        email: str,
         password: str
 ):
     ...
 
 
-@auth_router.get("/info_user_me")
-async def get_info_user_me():
+@auth_router.delete("/logout") # logout
+async def logout_user():
     ...
