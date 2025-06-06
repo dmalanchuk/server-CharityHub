@@ -39,7 +39,8 @@ class RegistrationService:
             raise HTTPException(status_code=404, detail="User not found")
 
         verification_code = str(random.randint(100000, 999999))
-        get_user.verification_code = verification_code
 
-        await send_verification_code(email, verification_code)
+        await RegistrationUser.safe_verification_code(get_user, verification_code, session)
+
+        await send_verification_code(verification_code, email)
         return {"msg": "Verification code has been sent"}

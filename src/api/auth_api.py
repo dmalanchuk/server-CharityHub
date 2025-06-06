@@ -25,7 +25,7 @@ async def registration_user(
 
 
 @auth_router.post("/login/email") # login email
-async def login_users(
+async def login_users_email(
         email: str,
         password: str,
         session: AsyncSession = Depends(get_session)
@@ -34,7 +34,7 @@ async def login_users(
 
 
 @auth_router.post("/login/username") # login username
-async def login_users(
+async def login_users_username(
         username: str,
         password: str,
         session: AsyncSession = Depends(get_session)
@@ -50,7 +50,7 @@ async def logout_user(
 
 
 @auth_router.post("/profile/email/verify")
-async def verify_user(
+async def verify_user_email(
         email: EmailStr,
         session: AsyncSession = Depends(get_session)
 ):
