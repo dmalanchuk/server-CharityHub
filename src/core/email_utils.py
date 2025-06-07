@@ -1,9 +1,10 @@
-from email.message import EmailMessage
 import smtplib
 import threading
-
 import os
+
+from email.message import EmailMessage
 from dotenv import load_dotenv
+from src.core.get_email_text import get_email_text
 
 load_dotenv()
 
@@ -20,27 +21,8 @@ def send_email_sync(msg):
 
 def send_verification_code_sync(code, to_email):
 
-    body = f"""\
-    Hi!
-
-    Your verification code is: {code}
-
-    If you did not request this, please ignore this email.
-
-    Best regards,
-    MyApp Team
-    """
-
-    html = f"""\
-    <html>
-      <body>
-        <p>Hi!</p>
-        <p>Your verification code is: <strong>{code}</strong></p>
-        <p>If you did not request this, please ignore this email.</p>
-        <p>Best regards,<br>CharityHub Team</p>
-      </body>
-    </html>
-    """
+    text = get_email_text(code, path="src/templates/email_temp_txt.txt")
+    html = get_email_text(code, path="src/templates/email_temp_html.html")
 
     msg = EmailMessage()
     msg["From"] = SMTP_USER
@@ -48,7 +30,7 @@ def send_verification_code_sync(code, to_email):
     msg["Subject"] = "Verify your email"
     msg["List-Unsubscribe"] = f"<mailto:{SMTP_USER}>"
     msg["Reply-To"] = SMTP_USER
-    msg.set_content(body)
+    msg.set_content(text)
     msg.add_alternative(html, subtype="html")
 
     thread = threading.Thread(target=send_email_sync, args=(msg,))
