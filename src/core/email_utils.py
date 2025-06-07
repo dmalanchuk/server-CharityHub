@@ -1,6 +1,6 @@
 from email.message import EmailMessage
-from aiosmtplib import SMTP
-import ssl
+import smtplib
+import threading
 
 import os
 from dotenv import load_dotenv
@@ -10,32 +10,46 @@ load_dotenv()
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASS = os.getenv("SMTP_PASS")
 
-SMTP_HOST = "smtp.gmail.com"
-SMTP_PORT = 587
+
+def send_email_sync(msg):
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(SMTP_USER, SMTP_PASS)
+        smtp.send_message(msg)
 
 
-async def send_verification_code(code: str, to_email: str):
-    ssl_context = ssl.create_default_context()
+
+def send_verification_code_sync(code, to_email):
+
+    body = f"""\
+    Hi!
+
+    Your verification code is: {code}
+
+    If you did not request this, please ignore this email.
+
+    Best regards,
+    MyApp Team
+    """
+
+    html = f"""\
+    <html>
+      <body>
+        <p>Hi!</p>
+        <p>Your verification code is: <strong>{code}</strong></p>
+        <p>If you did not request this, please ignore this email.</p>
+        <p>Best regards,<br>CharityHub Team</p>
+      </body>
+    </html>
+    """
 
     msg = EmailMessage()
     msg["From"] = SMTP_USER
     msg["To"] = to_email
     msg["Subject"] = "Verify your email"
-    msg.set_content(f"Your verification code is: {code}")
+    msg["List-Unsubscribe"] = f"<mailto:{SMTP_USER}>"
+    msg["Reply-To"] = SMTP_USER
+    msg.set_content(body)
+    msg.add_alternative(html, subtype="html")
 
-    try:
-        async with SMTP(
-                hostname=SMTP_HOST,
-                port=SMTP_PORT,
-                start_tls=True,
-                tls_context=ssl_context,
-                timeout=10
-        ) as smtp:
-            await smtp.login(SMTP_USER, SMTP_PASS)
-            await smtp.send_message(msg)
-
-        return True
-    except Exception as e:
-        print(f"Failed to send email: {str(e)}")
-        return False
-
+    thread = threading.Thread(target=send_email_sync, args=(msg,))
+    thread.start()

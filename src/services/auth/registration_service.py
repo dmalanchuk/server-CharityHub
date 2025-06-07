@@ -3,7 +3,7 @@ import random
 from fastapi import HTTPException
 
 from src.models.users_model import UserModel
-from src.core.email_utils import send_verification_code
+from src.core.email_utils import send_verification_code_sync
 from src.core.security_pw import hash_password
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -40,7 +40,7 @@ class RegistrationService:
 
         verification_code = str(random.randint(100000, 999999))
 
-        await RegistrationUser.safe_verification_code(get_user, verification_code, session)
+        await RegistrationUser.save_verification_code(get_user, verification_code, session)
 
-        await send_verification_code(verification_code, email)
+        send_verification_code_sync(verification_code, email)
         return {"msg": "Verification code has been sent"}

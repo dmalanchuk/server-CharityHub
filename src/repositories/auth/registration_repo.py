@@ -25,7 +25,7 @@ class RegistrationUser:
         return new_user
 
     @classmethod
-    async def safe_verification_code(cls, user: UserModel, verification_code: str, session: AsyncSession):
+    async def save_verification_code(cls, user: UserModel, verification_code: str, session: AsyncSession):
         user.verification_code = verification_code
         await session.commit()
 
