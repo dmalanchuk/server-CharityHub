@@ -6,6 +6,11 @@ class User(BaseModel):
     email: EmailStr
 
 
+class LoginUser(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=8)
+
+
 class GetInfoUser(User):
     id: int
     is_verified: bool
