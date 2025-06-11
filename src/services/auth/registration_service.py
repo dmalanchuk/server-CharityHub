@@ -2,7 +2,6 @@ import random
 
 from fastapi import HTTPException
 
-from src.models.users_model import UserModel
 from src.core.email_utils import send_verification_code_sync
 from src.core.security_pw import hash_password
 
@@ -19,7 +18,7 @@ class RegistrationService:
     async def auth_registration_user_service(data: CreateUser, session: AsyncSession):
         existing_user = await RegistrationUser.get_by_email(data.email, session)
         if existing_user:
-            raise ValueError("User with this email already exists")
+            raise HTTPException(status_code=409, detail="Email is already registered")
 
         new_user_data = {
             "username": data.username,
