@@ -1,14 +1,16 @@
-fastapi==0.115.12
-uvicorn==0.34.2
+fastapi
+uvicorn[standard]
 
-pydantic==2.11.4
+pydantic
+email-validator
 
-SQLAlchemy==2.0.41
-asyncpg==0.30.0
-alembic==1.15.2
+SQLAlchemy
+asyncpg
+greenlet
+psycopg2-binary
+alembic
 
-passlib==1.7.4
-aiosmtplib==4.0.1
+passlib
 
 python-jose
 bcrypt
