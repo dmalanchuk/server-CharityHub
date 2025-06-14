@@ -49,3 +49,9 @@ async def verify_user_email(
         session: AsyncSession = Depends(get_session)
 ):
     return await RegistrationService.get_verification_code(email, session)
+
+@auth_router.post("/profile/email/verification")
+async def verify_user_email(
+        session: AsyncSession = Depends(get_session)
+):
+    ...
