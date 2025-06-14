@@ -43,7 +43,7 @@ async def logout_user(
 ):
     return await RefreshTokenService.revoke_refresh_token_service(request, response, session)
 
-@auth_router.post("/profile/email/verify")
+@auth_router.post("/profile/email/verification-code")
 async def verify_user_email(
         email: EmailStr,
         session: AsyncSession = Depends(get_session)
