@@ -27,5 +27,8 @@ class RegistrationUser:
     @classmethod
     async def save_verification_code(cls, user: UserModel, verification_code: str, session: AsyncSession):
         user.verification_code = verification_code
+        await session.execute(
+            UserModel.__table__.update().where(UserModel.id == user.id).values(verified_code=verification_code)
+        )
         await session.commit()
 
