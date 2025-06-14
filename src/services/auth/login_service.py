@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.core.token import create_access_token, create_refresh_token
 from src.schemas.users_schema import LoginUser
 from src.repositories.auth.login_user_repo import LoginUserRepo
+from src.repositories.auth.refresh_repo import RefreshTokenRepo
 
 from fastapi import Response
 
@@ -11,7 +12,7 @@ class LoginService:
 
     @staticmethod
     async def login_user_service(data: LoginUser, response: Response, session: AsyncSession):
-        await LoginUserRepo.auth_user(data.email, data.password, session)
+        user = await LoginUserRepo.auth_user(data.email, data.password, response, session)
 
         access_token = create_access_token(
             data={"sub": data.email},
@@ -19,6 +20,8 @@ class LoginService:
         refresh_token = create_refresh_token(
             data={"sub": data.email},
         )
+
+        await RefreshTokenRepo.safe_refresh_token(user.id, refresh_token, session)
 
         response.set_cookie(
             key="refresh_token",
