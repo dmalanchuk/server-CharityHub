@@ -4,11 +4,12 @@ from pydantic import EmailStr
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.services.auth.refresh_token_service import RefreshTokenService
 from src.services.auth.login_service import LoginService
 from src.schemas.users_schema import CreateUser, LoginUser
 from src.database import get_session
 
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, Request
 
 from src.services.auth.registration_service import RegistrationService
 
@@ -36,10 +37,11 @@ async def login_users_email(
 
 @auth_router.delete("/logout") # logout
 async def logout_user(
+        request: Request,
+        response: Response,
         session: AsyncSession = Depends(get_session)
 ):
-    ...
-
+    return await RefreshTokenService.revoke_refresh_token_service(request, response, session)
 
 @auth_router.post("/profile/email/verify")
 async def verify_user_email(

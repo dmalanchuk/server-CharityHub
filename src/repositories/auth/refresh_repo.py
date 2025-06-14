@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import Response, HTTPException
 
 from src.models.login_tokens_model import LoginTokens
 
@@ -24,3 +25,16 @@ class RefreshTokenRepo:
 
         session.add(login_token)
         await session.commit()
+
+    @staticmethod
+    async def revoke_refresh_token(refresh_token: str, response: Response, session: AsyncSession):
+        if not refresh_token:
+            raise HTTPException(status_code=401, detail="Refresh token is required")
+
+        await session.execute(
+            LoginTokens.__table__.update().where(LoginTokens.refresh_token == refresh_token).values(revoked=True)
+        )
+
+        await session.commit()
+        response.delete_cookie("refresh_token")
+
