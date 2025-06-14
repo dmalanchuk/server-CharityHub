@@ -1,7 +1,7 @@
 import datetime
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.database import Base
 
 
@@ -16,3 +16,5 @@ class LoginTokens(Base):
     revoked: Mapped[bool] = mapped_column(nullable=False)
     expires_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
+
+    user = relationship("Users", back_populates="tokens")
