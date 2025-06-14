@@ -8,13 +8,17 @@ class RefreshTokenRepo:
 
     @staticmethod
     async def safe_refresh_token(user_id: int, refresh_token: str, session: AsyncSession):
-        expires_at = datetime.now(timezone.utc) + timedelta(days=30)
+        aware_created_at = datetime.now(timezone.utc)
+        aware_expires_at = aware_created_at + timedelta(days=30)
+
+        created_at = aware_created_at.replace(tzinfo=None)
+        expires_at = aware_expires_at.replace(tzinfo=None)
 
         login_token = LoginTokens(
             user_id=user_id,
             refresh_token=refresh_token,
             revoked=False,
-            created_at=datetime.now(timezone.utc),
+            created_at=created_at,
             expires_at=expires_at
         )
 
