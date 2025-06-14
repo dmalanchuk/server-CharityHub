@@ -12,7 +12,7 @@ class LoginService:
 
     @staticmethod
     async def login_user_service(data: LoginUser, response: Response, session: AsyncSession):
-        user = await LoginUserRepo.auth_user(data.email, data.password, response, session)
+        user = await LoginUserRepo.auth_user(data.email, data.password, session)
 
         access_token = create_access_token(
             data={"sub": data.email},
