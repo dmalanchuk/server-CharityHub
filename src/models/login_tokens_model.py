@@ -17,4 +17,4 @@ class LoginTokens(Base):
     expires_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(nullable=False)
 
-    user = relationship("Users", back_populates="tokens")
+    user = relationship("UserModel", back_populates="tokens")
