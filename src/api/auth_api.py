@@ -4,6 +4,7 @@ from pydantic import EmailStr
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.services.auth.verification_email_service import VerificationEmailService
 from src.services.auth.refresh_token_service import RefreshTokenService
 from src.services.auth.login_service import LoginService
 from src.schemas.users_schema import CreateUser, LoginUser
@@ -52,6 +53,7 @@ async def verify_user_email(
 
 @auth_router.post("/profile/email/verification")
 async def verify_user_email(
+        verification_code: str,
         session: AsyncSession = Depends(get_session)
 ):
-    ...
+    return await VerificationEmailService.verification_email_service(verification_code, session)
