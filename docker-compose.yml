@@ -1,6 +1,6 @@
 services:
   server-fastapi:
-    build: .
+    image: dmalanchuk/server-charityhub-server-fastapi:latest
     container_name: fastapi-app
     ports:
       - "8000:8000"
@@ -9,11 +9,11 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app
+      - .:/app  # Можна прибрати, якщо не потрібно оновлювати код на льоту
     command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 
   db:
-    image: postgres:17
+    image: dmalanchuk/server-charityhub-postgres:17
     container_name: postgres-db
     restart: always
     env_file:

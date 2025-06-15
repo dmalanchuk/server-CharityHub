@@ -10,7 +10,7 @@ from src.database import Base
 class LoginTokens(Base):
     __tablename__ = "login_tokens"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     refresh_token: Mapped[str] = mapped_column(nullable=False)
     revoked: Mapped[bool] = mapped_column(nullable=False)
