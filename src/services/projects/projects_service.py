@@ -8,15 +8,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 class ProjectsService:
 
     @staticmethod
-    async def create_project(project: CreateProject, session: AsyncSession):
+    async def create_project(project: CreateProject, current_user, session: AsyncSession):
 
         project = {
             "title": project.title,
             "description": project.description,
-            "category_id": project.category_id,
+            "category": project.category,
             "goal_amount": project.goal_amount,
-            "url_donations": project.url_donations,
-            "owner": project.owner,
+            "iban_details": project.iban_details,
+            "user_id": current_user.id,
             "end_date": project.end_date
         }
 

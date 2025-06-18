@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.token import create_access_token, create_refresh_token
+from src.core.token_utils import create_access_token, create_refresh_token
 from src.schemas.users_schema import LoginUser
 from src.repositories.auth.login_user_repo import LoginUserRepo
 from src.repositories.auth.refresh_repo import RefreshTokenRepo

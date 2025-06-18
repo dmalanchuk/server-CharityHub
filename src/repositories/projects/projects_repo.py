@@ -1,12 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models.projects_model import ProjectsModel
-from src.schemas.projects_schema import CreateProject
 
 class ProjectsRepository:
 
     @staticmethod
-    async def save_new_projects(project: CreateProject, session: AsyncSession,):
+    async def save_new_projects(project: dict, session: AsyncSession,):
         new_project = ProjectsModel(**project)
 
         session.add(new_project)
