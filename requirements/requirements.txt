@@ -13,4 +13,4 @@ alembic
 passlib
 
 python-jose
-bcrypt
+bcrypt==4.0.1

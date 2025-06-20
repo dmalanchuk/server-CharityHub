@@ -9,6 +9,7 @@ class CreateProject(BaseModel):
     category: str
     goal_amount: int
     iban_details: str
+    owner: str
     end_date: date
 
     class Config:

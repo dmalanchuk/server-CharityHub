@@ -15,5 +15,5 @@ class ProjectsModel(Base):
     current_amount: Mapped[int] = mapped_column(nullable=False, default=0)
     start_date: Mapped[date] = mapped_column(default=date.today)
     end_date: Mapped[date] = mapped_column()
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    owner: Mapped[str] = mapped_column()
     iban_details: Mapped[str] = mapped_column(nullable=False)
