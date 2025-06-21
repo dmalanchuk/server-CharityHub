@@ -13,9 +13,12 @@ SMTP_PASS = os.getenv("SMTP_PASS")
 
 
 def send_email_sync(msg):
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login(SMTP_USER, SMTP_PASS)
-        smtp.send_message(msg)
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(SMTP_USER, SMTP_PASS)
+            smtp.send_message(msg)
+    except Exception as e:
+        print(f"Email send failed: {e}")
 
 
 
