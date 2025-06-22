@@ -19,6 +19,12 @@ auth_router = APIRouter(
 )
 
 
+@auth_router.get("/get/user/{id}")
+async def get_user_by_id(
+    session: AsyncSession = Depends(get_session)
+):
+    ...
+
 @auth_router.post("/registration") # registration
 async def registration_user(
         data: Annotated[CreateUser, Depends()],
