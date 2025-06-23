@@ -4,6 +4,7 @@ from pydantic import EmailStr
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.services.auth.get_info_user_service import GetInfoUserService
 from src.services.auth.verification_email_service import VerificationEmailService
 from src.services.auth.refresh_token_service import RefreshTokenService
 from src.services.auth.login_service import LoginService
@@ -19,11 +20,20 @@ auth_router = APIRouter(
 )
 
 
-@auth_router.get("/get/user/{id}")
+@auth_router.get("/get/user/{user_id}")
 async def get_user_by_id(
+    user_id: int,
     session: AsyncSession = Depends(get_session)
 ):
-    ...
+    return await GetInfoUserService.get_user_info_service(user_id, session)
+
+@auth_router.delete("/logout") # logout
+async def logout_user(
+        request: Request,
+        response: Response,
+        session: AsyncSession = Depends(get_session)
+):
+    return await RefreshTokenService.revoke_refresh_token_service(request, response, session)
 
 @auth_router.post("/registration") # registration
 async def registration_user(
@@ -41,16 +51,7 @@ async def login_users_email(
 ):
     return await LoginService.login_user_service(data, response, session)
 
-
-@auth_router.delete("/logout") # logout
-async def logout_user(
-        request: Request,
-        response: Response,
-        session: AsyncSession = Depends(get_session)
-):
-    return await RefreshTokenService.revoke_refresh_token_service(request, response, session)
-
-@auth_router.post("/profile/email/verification-code")
+@auth_router.post("/profile/email/get/verification-code")
 async def verify_user_email(
         email: EmailStr,
         session: AsyncSession = Depends(get_session)
