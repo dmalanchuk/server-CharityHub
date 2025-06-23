@@ -1,6 +1,7 @@
 import random
 
 from fastapi import HTTPException
+from pydantic import EmailStr
 
 from src.core.email_utils import send_verification_code_sync
 from src.core.security_pw import hash_password
@@ -31,7 +32,7 @@ class RegistrationService:
         return await RegistrationUser.reg_user_by_email(new_user_data, session)
 
     @staticmethod
-    async def get_verification_code(email: str, session: AsyncSession):
+    async def get_verification_code(email: EmailStr, session: AsyncSession):
         get_user = await RegistrationUser.get_by_email(email, session)
 
         if not get_user:
