@@ -11,8 +11,7 @@ class LoginUser(BaseModel):
     password: str = Field(min_length=8)
 
 
-class GetInfoUser(User):
-    id: int
+class GetVerifyUser(User):
     is_verified: bool
 
     class Config:
