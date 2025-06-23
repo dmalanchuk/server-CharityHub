@@ -5,6 +5,7 @@ from src.core.security_pw import pwd_context
 from src.models.users_model import UserModel
 from sqlalchemy import select
 
+
 class LoginUserRepo:
 
     @classmethod

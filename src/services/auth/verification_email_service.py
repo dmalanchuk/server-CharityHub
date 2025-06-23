@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.repositories.auth.get_verify_code_repo import GetVerifyCodeRepo
 from src.models.users_model import UserModel
 
+
 class VerificationEmailService:
 
     @staticmethod

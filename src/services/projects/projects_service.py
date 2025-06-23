@@ -9,7 +9,6 @@ class ProjectsService:
 
     @staticmethod
     async def create_project(project: CreateProject, session: AsyncSession):
-
         project = {
             "title": project.title,
             "description": project.description,

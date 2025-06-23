@@ -5,6 +5,7 @@ from fastapi import Response, HTTPException
 
 from src.models.login_tokens_model import LoginTokens
 
+
 class RefreshTokenRepo:
 
     @staticmethod
@@ -37,4 +38,3 @@ class RefreshTokenRepo:
 
         await session.commit()
         response.delete_cookie("refresh_token")
-
