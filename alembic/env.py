@@ -9,8 +9,6 @@ import os
 from dotenv import load_dotenv
 
 from src.database import Base
-from src.models import categories_model, users_model, donations_model, login_tokens_model, projects_model
-
 
 load_dotenv()
 
