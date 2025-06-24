@@ -27,7 +27,7 @@ class LoginService:
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=False, # для тестування локально, потім змінити на True
+            secure=False,  # для тестування локально, потім змінити на True
             samesite="Lax",
             max_age=3600 * 24 * 30,
         )

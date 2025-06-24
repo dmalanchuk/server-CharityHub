@@ -32,4 +32,3 @@ class RegistrationUser:
             UserModel.__table__.update().where(UserModel.id == user.id).values(verified_code=verification_code)
         )
         await session.commit()
-

@@ -12,7 +12,6 @@ from src.schemas.users_schema import CreateUser
 from src.repositories.auth.registration_repo import RegistrationUser
 
 
-
 class RegistrationService:
 
     @staticmethod

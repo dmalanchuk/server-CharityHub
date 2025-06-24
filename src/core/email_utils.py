@@ -21,9 +21,7 @@ def send_email_sync(msg):
         print(f"Email send failed: {e}")
 
 
-
 def send_verification_code_sync(code, to_email):
-
     text = get_email_text(code, path="src/templates/email_temp_txt.txt")
     html = get_email_text(code, path="src/templates/email_temp_html.html")
 

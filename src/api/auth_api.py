@@ -1,7 +1,6 @@
 from typing import Annotated
 from pydantic import EmailStr
 
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.services.auth.get_info_user_service import GetInfoUserService
@@ -20,14 +19,15 @@ auth_router = APIRouter(
 )
 
 
-@auth_router.get("/get/user/{user_id}")
+@auth_router.get("/get/user/{email}")
 async def get_user_by_id(
-    user_id: int,
-    session: AsyncSession = Depends(get_session)
+        email: str,
+        session: AsyncSession = Depends(get_session)
 ):
-    return await GetInfoUserService.get_user_info_service(user_id, session)
+    return await GetInfoUserService.get_user_info_service(email, session)
 
-@auth_router.delete("/logout") # logout
+
+@auth_router.delete("/logout")  # logout
 async def logout_user(
         request: Request,
         response: Response,
@@ -35,7 +35,8 @@ async def logout_user(
 ):
     return await RefreshTokenService.revoke_refresh_token_service(request, response, session)
 
-@auth_router.post("/registration") # registration
+
+@auth_router.post("/registration")  # registration
 async def registration_user(
         data: Annotated[CreateUser, Depends()],
         session: AsyncSession = Depends(get_session)
@@ -43,7 +44,7 @@ async def registration_user(
     return await RegistrationService.auth_registration_user_service(data, session)
 
 
-@auth_router.post("/login/email") # login email
+@auth_router.post("/login/email")  # login email
 async def login_users_email(
         data: Annotated[LoginUser, Depends()],
         response: Response,
@@ -51,12 +52,14 @@ async def login_users_email(
 ):
     return await LoginService.login_user_service(data, response, session)
 
+
 @auth_router.post("/profile/email/get/verification-code")
 async def verify_user_email(
         email: EmailStr,
         session: AsyncSession = Depends(get_session)
 ):
     return await RegistrationService.get_verification_code(email, session)
+
 
 @auth_router.post("/profile/email/verification")
 async def verify_user_email(
