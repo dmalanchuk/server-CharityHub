@@ -19,12 +19,12 @@ auth_router = APIRouter(
 )
 
 
-@auth_router.get("/get/user/{user_id}")
+@auth_router.get("/get/user/{email}")
 async def get_user_by_id(
-        user_id: int,
+        email: str,
         session: AsyncSession = Depends(get_session)
 ):
-    return await GetInfoUserService.get_user_info_service(user_id, session)
+    return await GetInfoUserService.get_user_info_service(email, session)
 
 
 @auth_router.delete("/logout")  # logout

@@ -8,9 +8,9 @@ from src.models.users_model import UserModel
 class GetInfoUserRepo:
 
     @staticmethod
-    async def get_user_info(user_id: int, session: AsyncSession):
+    async def get_user_info(email: str, session: AsyncSession):
         res = await session.execute(
-            select(UserModel).where(UserModel.id == user_id)
+            select(UserModel).where(UserModel.email == email)
         )
         result = res.scalars().first()
 
