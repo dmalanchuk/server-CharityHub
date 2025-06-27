@@ -29,3 +29,10 @@ command: `uvicorn src.main:app --reload`
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Docker
+
+First, pull the latest version of the image from Docker Hub:
+`docker pull dmalanchuk/server-charityhub-server-fastapi:latest`
+
+Run the container: `docker run -p 8000:8000 dmalanchuk/server-charityhub-server-fastapi:latest`
